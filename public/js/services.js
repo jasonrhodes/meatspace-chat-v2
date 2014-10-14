@@ -31,24 +31,24 @@ exports.getMessage = function (data, mutedFP, userIdManager, profile, messages) 
     window.ga('send', 'event', 'message', 'receive');
   }
 
-  if (!mutedFP[data.fingerprint]) {
-    var li = $('<li data-fp="' + data.fingerprint + '" />');
+  if (!mutedFP[data.value.fingerprint]) {
+    var li = $('<li data-fp="' + data.value.fingerprint + '" />');
     var videoContainer = $('<div class="video-container"/>');
-    var video = $('<video src="' + data.media + '" autoplay="autoplay" loop />');
+    var video = $('<video src="' + data.value.media + '" autoplay="autoplay" loop />');
     var convertButton = $('<a class="convert">Save as GIF</a>');
     var p = $('<p />');
     var userControls = '';
 
-    if (!userIdManager.contains(data.fingerprint)) {
+    if (!userIdManager.contains(data.value.fingerprint)) {
       userControls = '<button class="mute">mute</button>';
     }
 
-    var created = moment(new Date(data.created));
+    var created = moment(new Date(data.value.created));
     var time = $('<time datetime="' + created.toISOString() + '" class="timestamp">' +
       created.format('LT') + '</time>');
 
     var actions = $('<div class="actions">' + userControls +'</div>');
-    p.html(data.message);
+    p.html(data.value.message);
     videoContainer.append(video).append(convertButton);
     li.append(videoContainer).append(p).append(actions);
     messages.append(li);

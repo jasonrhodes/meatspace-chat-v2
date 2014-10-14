@@ -131,11 +131,11 @@ server.start(function () {
         }
 
         socket.emit('messageack', null, ackData);
-        var videoData = chat.media;
+        var videoData = chat.value.media;
         var formats = ['webm', 'mp4'];
 
         formats.forEach(function (format) {
-          chat.media = videoData[format];
+          chat.value.media = videoData[format];
           io.sockets.in(format).emit('message', chat);
         });
       });
